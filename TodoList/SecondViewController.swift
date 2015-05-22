@@ -8,11 +8,36 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class SecondViewController: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var mTextField: UITextField!
+    @IBOutlet weak var btAddItem: UIButton!
+    
+    
+    @IBAction func addItem(sender: AnyObject) {
+        
+        if mTextField.text != ""{
+            todoList.append(mTextField.text)
+            mTextField.text = ""
+        }else{
+            println("type something")
+        }
+    }
+    
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        mTextField.resignFirstResponder()
+        return true
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        mTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
